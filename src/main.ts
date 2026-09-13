@@ -1,0 +1,50 @@
+import './style.css';
+import {BETS,NAMES,browserRng,initialState,spin,type State,type Result} from './engine/game';
+import {Sound} from './sound';
+const initialGrid=[0,1,2,3,7,4,5,0,6,9,3,6,2,8,4];
+let state=initialState(),betIndex=2,busy=false,auto=false,reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+try{const saved=JSON.parse(localStorage.getItem('poo-star-v1')||'null');if(saved&&Number.isSafeInteger(saved.balance)&&saved.balance>=0&&Number.isInteger(saved.free)&&saved.free>=0&&saved.free<=50&&Number.isInteger(saved.multiplier)&&saved.multiplier>=1&&saved.multiplier<=10&&BETS.includes(saved.bonusBet))state=saved;}catch{}
+let autoEpoch=0;
+const sound=new Sound();const money=(value:number)=>`€${(value/100).toLocaleString('en-IE',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+const app=document.querySelector<HTMLDivElement>('#app')!;
+app.innerHTML=`<div class="topline"><span>THE NUMBER TWO EXPERIENCE</span><div><button id="sound" aria-label="Enable sound" aria-pressed="false">♫ SOUND OFF</button><button id="help">HOW TO PLAY</button></div></div>
+<section class="stage" aria-label="Poo Star slot demo"><h1 class="sr-only">Poo Star — Not the usual shitty slot</h1>
+<div id="reels" class="reels" role="group" aria-label="Five reels, three rows"></div>
+<aside class="feature-board"><h2>FEATURES</h2><p><b class="feature-icon">♨</b><span>UP TO <strong>50</strong><br>FIBRE FREE<br>SPINS</span></p><p><b class="feature-icon">×</b><span>MULTIPLIER<br>BUILDS SHIT</span></p><p><b class="feature-icon">?!</b><span>RANDOM<br>POO EVENTS</span></p><small>IT ALL<br>ADDS UP TO A<br><strong>BIGGER PRIZE DUMP!</strong></small></aside>
+<div id="bonus" class="bonus-strip" hidden><span>FIBRE FREE SPINS</span><strong id="free">0</strong><span id="multiplier">×1</span></div>
+<div id="message" class="message" role="status" aria-live="polite">TURDS. FAME. FORTUNE.</div>
+<div class="controls"><button class="square menu" id="menu" aria-label="Open game menu">≡</button><div class="meter balance"><small>BALANCE</small><strong id="balance"></strong></div><div class="bet-box"><button id="minus" aria-label="Decrease bet">−</button><div class="meter"><small>BET</small><strong id="bet"></strong></div><button id="plus" aria-label="Increase bet">+</button></div><button id="spin" class="spin">SPIN <span class="crown">♛</span></button><button class="square max" id="max">MAX<br>BET</button><button class="square auto" id="auto" aria-pressed="false">AUTO<br>PLAY</button></div>
+<div class="win-readout">LAST WIN <strong id="win">€0.00</strong></div>
+<div class="celebration" id="celebration" hidden aria-live="polite"><span id="win-title">GOOD SHIT!</span><strong id="win-amount">€0.00</strong><small id="win-caption">THAT'S SHOW BUSINESS.</small></div>
+</section><footer><span>DEMO PLAY · NO CASH VALUE</span><span>POO STAR <i>✦</i> EVERY TURD HAS ITS DAY.</span><span id="round">ROUND 0000</span></footer>
+<dialog id="dialog"><button id="close" class="close" aria-label="Close dialog">×</button><div id="dialog-body"></div></dialog>`;
+const el=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
+function tile(id:number,index:number){return `<div class="cell ${id===2?'scatter':id===5?'wild':''}" data-index="${index}" aria-label="${NAMES[id]}"><div class="symbol" style="--x:${id%4/3*100}%;--y:${Math.floor(id/4)/2*100}%"></div>${id===2?'<b class="symbol-label">SCATTER</b>':id===5?'<b class="symbol-label">WILD</b>':''}</div>`;}
+function draw(grid:number[]){el('reels').innerHTML=grid.map(tile).join('');}
+function refresh(){el('balance').textContent=money(state.balance);el('bet').textContent=money(state.free?state.bonusBet:BETS[betIndex]);el('round').textContent=`ROUND ${String(state.round).padStart(4,'0')}`;el('bonus').hidden=!state.free;el('free').textContent=String(state.free);el('multiplier').textContent=`×${state.multiplier}`;
+ for(const id of ['minus','plus','max'])el<HTMLButtonElement>(id).disabled=busy||state.free>0;
+ el<HTMLButtonElement>('spin').disabled=busy;el('spin').innerHTML=busy?'ROLLING…':state.free?'FREE SPIN <span class="crown">♛</span>':'SPIN <span class="crown">♛</span>';
+ el('auto').classList.toggle('selected',auto);el('auto').setAttribute('aria-pressed',String(auto));}
+function save(){try{localStorage.setItem('poo-star-v1',JSON.stringify(state));}catch{}}
+const delay=(ms:number)=>new Promise(r=>setTimeout(r,ms));
+let celebrationTimer:ReturnType<typeof setTimeout>;
+function celebrate(result:Result){clearTimeout(celebrationTimer);if(!result.awarded&&!result.event&&result.payout<result.bet*5)return;
+ el('win-title').textContent=result.awarded?'FIBRE POWER!':result.event&&result.payout<result.bet*5?result.event:result.payout>=result.bet*20?'HOLY SHIT!':'GOOD SHIT!';
+ el('win-amount').textContent=result.awarded?`${result.awarded} FREE SPINS`:result.payout?money(result.payout):'WILD ARRIVAL';
+ el('win-caption').textContent=result.awarded?'KEEP THINGS MOVING.':"YOU'RE A REAL SHIT LEGEND.";el('celebration').hidden=false;celebrationTimer=setTimeout(()=>el('celebration').hidden=true,reduced?1200:3200);}
+async function play(){if(busy)return;busy=true;el('celebration').hidden=true;refresh();sound.play('roll');el('message').textContent='YOUR MOMENT IN THE SPOTLIGHT…';
+ try{const result=spin(state,BETS[betIndex],browserRng);state=result.state;save();
+ const cells=[...document.querySelectorAll<HTMLElement>('.cell')];cells.forEach(c=>{c.classList.remove('winner');if(!reduced)c.classList.add('rolling');});
+ if(!reduced){for(let col=0;col<5;col++){await delay(col===0?650:180);for(let row=0;row<3;row++){const index=row*5+col;cells[index].outerHTML=tile(result.grid[index],index);}sound.play('stop',col);}}else draw(result.grid);
+ result.wins.flatMap(w=>w.cells).forEach(index=>document.querySelector(`[data-index="${index}"]`)?.classList.add('winner'));
+ el('win').textContent=money(result.payout);el('message').textContent=result.awarded?`${result.awarded} FIBRE FREE SPINS · LET THE GOOD TIMES ROLL`:result.payout?`${money(result.payout)} · ${result.wins.length} WINNING ${result.wins.length===1?'LINE':'LINES'}${result.free?' · FIBRE POWER':''}`:result.event||['EVERY TURD HAS ITS DAY.','DREAM BIGGER. AIM LOWER.','FAME IS JUST A FLUSH AWAY.','YOUR NEXT BIG MOVEMENT AWAITS.'][state.round%4];
+ if(result.payout||result.awarded)sound.play(result.awarded?'bonus':'win');celebrate(result);
+ }catch(e){el('message').textContent=(e as Error).message;auto=false;}finally{busy=false;refresh();}
+ if(auto){const epoch=autoEpoch;await delay(reduced?750:1800);if(auto&&epoch===autoEpoch&&!busy)void play();}}
+el('spin').onclick=()=>{autoEpoch++;auto=false;void play();};el('auto').onclick=()=>{autoEpoch++;auto=!auto;refresh();if(auto&&!busy)void play();};
+el('minus').onclick=()=>{betIndex=Math.max(0,betIndex-1);sound.play('tap');refresh();};el('plus').onclick=()=>{betIndex=Math.min(BETS.length-1,betIndex+1);sound.play('tap');refresh();};el('max').onclick=()=>{betIndex=BETS.length-1;sound.play('tap');refresh();};
+el('sound').onclick=()=>{const enabled=sound.toggle();el('sound').textContent=enabled?'♫ SOUND ON':'♫ SOUND OFF';el('sound').setAttribute('aria-pressed',String(enabled));el('sound').setAttribute('aria-label',enabled?'Mute sound':'Enable sound');};
+const dialog=el<HTMLDialogElement>('dialog');function showMenu(){autoEpoch++;auto=false;refresh();el('dialog-body').innerHTML=`<p class="eyebrow">WELCOME TO THE NUMBER TWO CLUB</p><h2>HOW TO POO STAR</h2><p>Spin five reels. Match three or more symbols from the left on any of <strong>20 fixed paylines</strong>. The golden sunglasses star is wild and stands in for any symbol except Scatter.</p><div class="rules"><div><b>STAR POWER</b><p>3 Scatters award 10 free spins; 4 award 20; 5 or more award 50. Free spins can retrigger, up to 50 remaining.</p></div><div><b>FIBRE POWER</b><p>A winning free spin increases the next spin's multiplier, up to ×10. Your bet stays locked during free spins.</p></div><div><b>A STAR IS BORN</b><p>Occasionally a random symbol turns golden wild. No extra bet required.</p></div></div><h3>THE PAYOUTS</h3><p>Each of 20 lines receives 1/20 of your bet. Letters and toilet roll pay 1 / 3 / 10 times the line bet for 3 / 4 / 5 matches. Premium symbols pay 2 / 7 / 30 times. Scatters additionally pay 2 / 5 / 20 times your total bet for 3 / 4 / 5+.</p><label class="setting"><input type="checkbox" id="reduced" ${reduced?'checked':''}> Reduced motion</label><button class="refill" id="refill" ${busy?'disabled':''}>REFILL DEMO CREDITS</button><p class="fine">A gag game made with love. Fictional credits, no deposits, no cash prizes. Game progress is saved only in this browser. This demo has no certified return percentage.</p>`;dialog.showModal();el<HTMLInputElement>('reduced').onchange=e=>{reduced=(e.target as HTMLInputElement).checked;document.documentElement.classList.toggle('reduced',reduced);};el('refill').onclick=()=>{state=initialState();save();draw(initialGrid);el('win').textContent='€0.00';refresh();dialog.close();};}
+el('menu').onclick=showMenu;el('help').onclick=showMenu;el('close').onclick=()=>dialog.close();dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){autoEpoch++;auto=false;sound.stop();refresh();}});document.addEventListener('keydown',e=>{if(e.code==='Space'&&!dialog.open&&e.target===document.body){e.preventDefault();auto=false;void play();}});
+document.documentElement.classList.toggle('reduced',reduced);draw(initialGrid);refresh();

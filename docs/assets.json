@@ -1,0 +1,28 @@
+{
+  "project": "Poo Star",
+  "sourceFork": "https://github.com/dancockrell/supernatural-wild-west",
+  "sourceRevision": "e739f731b6be777df618ffdaf6fda3951a19d2af",
+  "tool": "built-in image_gen",
+  "reference": "docs/reference.png",
+  "assets": [
+    {
+      "path": "public/art/stage.png",
+      "sha256": "0f447d5519bf67d961cdd549c34c2544343ac231be9cdf2471a1b3aae7875571",
+      "bytes": 2710893,
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "public/art/tiles.png",
+      "sha256": "4bf46f5f1661457e62c03201dad9c5557d9cce94a62c8a6bbdc234d4986f133b",
+      "bytes": 2433610,
+      "dimensions": [
+        1536,
+        1024
+      ]
+    }
+  ],
+  "note": "Intentionally opaque background and tile art; no alpha masking or generated video. Checkerboard atlas candidate rejected and not shipped."
+}
