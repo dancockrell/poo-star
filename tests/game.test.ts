@@ -7,3 +7,6 @@ describe('Poo Star demo rules',()=>{
  it('free spins retain the awarded wager and never debit the balance',()=>{const s={...initialState(),free:2,bonusBet:200};const r=spin(s,100,new SeededRng(17));expect(r.bet).toBe(200);expect(r.state.balance).toBe(s.balance+r.payout);});
  it('rejects unsupported and unaffordable bets',()=>{expect(()=>spin(initialState(),123,new SeededRng(1))).toThrow();expect(()=>spin({...initialState(),balance:0},BETS[0],new SeededRng(1))).toThrow();});
 });
+
+it('pays wild runs even when followed by a scatter',()=>{const grid=Array(15).fill(2);grid[0]=5;grid[1]=5;grid[2]=5;const wins=evaluate(grid,100);expect(wins.find(w=>w.cells.join(',')==='0,1,2')?.amount).toBe(280);});
+it('scales rewards consistently across every allowed wager',()=>{const grid=[0,0,0,1,3,1,3,4,6,7,4,6,7,8,9];for(const bet of BETS)expect(evaluate(grid,bet).reduce((n,w)=>n+w.amount,0)/bet).toBe(evaluate(grid,100).reduce((n,w)=>n+w.amount,0)/100);});

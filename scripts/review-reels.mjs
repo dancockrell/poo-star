@@ -1,0 +1,2 @@
+import {chromium} from '@playwright/test';
+const b=await chromium.launch({channel:'chrome',headless:true});const p=await b.newPage({viewport:{width:1440,height:1030}});await p.goto('http://127.0.0.1:8791');await p.locator('#spin').click();await p.waitForTimeout(1700);await p.screenshot({path:'docs/reels-moving.png'});await p.waitForFunction(()=>!document.querySelector('#spin').disabled);const cells=await p.locator('#reels .cell').count();if(cells!==15)throw Error('Result grid incomplete');await b.close();

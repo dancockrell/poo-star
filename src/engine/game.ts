@@ -12,10 +12,16 @@ export function evaluate(grid:number[],bet:number,multiplier=1):Win[]{
  const wins:Win[]=[];
  for(const line of LINES){
   const cells=line.map((row,col)=>row*5+col);const symbols=cells.map(i=>grid[i]);
-  const symbol=symbols.find(s=>s!==5)??5;if(symbol===2)continue;
-  let count=0;for(const s of symbols){if(s!==symbol&&s!==5)break;count++;}
-  if(count>=3){const premium=symbol>=7||symbol===5;const pay=(premium?[2,7,30]:[1,3,10])[count-3];
-   wins.push({cells:cells.slice(0,count),amount:Math.max(1,Math.round(bet/20*pay*multiplier)),symbol});}
+  // Pay the best valid interpretation, including wilds before a scatter.
+  let best:Win|undefined;
+  for(const symbol of [...new Set([5,...symbols.filter(s=>s!==2&&s!==5)])]){
+   let count=0;for(const s of symbols){if(s!==symbol&&s!==5)break;count++;}
+   if(count<3)continue;
+   const pay=(symbol>=7||symbol===5?[56,196,840]:[28,84,280])[count-3];
+   const amount=Math.round(bet/20*pay*multiplier);
+   if(!best||amount>best.amount)best={cells:cells.slice(0,count),amount,symbol};
+  }
+  if(best)wins.push(best);
  }
  return wins;
 }

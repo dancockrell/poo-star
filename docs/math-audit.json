@@ -1,0 +1,41 @@
+{
+  "note": "Seeded Monte Carlo of fictional-credit rules, including complete bonus rounds. Not a certified RTP or guarantee. Intervals are approximate.",
+  "reports": [
+    {
+      "betCents": 20,
+      "paidCycles": 1000000,
+      "returnRatio": 0.9402792000023514,
+      "approx95PercentInterval": [
+        0.9344404427386774,
+        0.9461179572660254
+      ],
+      "paidHitRate": 0.266768,
+      "bonusRate": 0.002055,
+      "freeSpins": 22260
+    },
+    {
+      "betCents": 100,
+      "paidCycles": 1000000,
+      "returnRatio": 0.9402792000023514,
+      "approx95PercentInterval": [
+        0.9344404427386774,
+        0.9461179572660254
+      ],
+      "paidHitRate": 0.266768,
+      "bonusRate": 0.002055,
+      "freeSpins": 22260
+    },
+    {
+      "betCents": 1000,
+      "paidCycles": 1000000,
+      "returnRatio": 0.9402792000023514,
+      "approx95PercentInterval": [
+        0.9344404427386774,
+        0.9461179572660254
+      ],
+      "paidHitRate": 0.266768,
+      "bonusRate": 0.002055,
+      "freeSpins": 22260
+    }
+  ]
+}
