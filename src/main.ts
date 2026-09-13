@@ -16,7 +16,7 @@ app.innerHTML=`<div class="topline"><span>THE NUMBER TWO EXPERIENCE</span><div><
 <div class="controls"><button class="square menu" id="menu" aria-label="Open game menu">≡</button><div class="meter balance"><small>BALANCE</small><strong id="balance"></strong></div><div class="bet-box"><button id="minus" aria-label="Decrease bet">−</button><div class="meter"><small>BET</small><strong id="bet"></strong></div><button id="plus" aria-label="Increase bet">+</button></div><button id="spin" class="spin">SPIN <span class="crown">♛</span></button><button class="square max" id="max">MAX<br>BET</button><button class="square auto" id="auto" aria-pressed="false">AUTO<br>PLAY</button></div>
 <div class="win-readout">LAST WIN <strong id="win">€0.00</strong></div>
 <div class="celebration" id="celebration" hidden aria-live="polite"><span id="win-title">GOOD SHIT!</span><strong id="win-amount">€0.00</strong><small id="win-caption">THAT'S SHOW BUSINESS.</small></div>
-</section><footer><span>DEMO PLAY · NO CASH VALUE</span><span>POO STAR <i>✦</i> EVERY TURD HAS ITS DAY.</span><span id="round">ROUND 0000</span></footer>
+</section><footer><span>DEMO PLAY · NO CASH VALUE</span><span id="round">ROUND 0000</span></footer>
 <dialog id="dialog"><button id="close" class="close" aria-label="Close dialog">×</button><div id="dialog-body"></div></dialog>`;
 const el=<T extends HTMLElement=HTMLElement>(id:string)=>document.getElementById(id) as T;
 function tile(id:number,index:number){return `<div class="cell ${id===2?'scatter':id===5?'wild':''}" data-index="${index}" aria-label="${NAMES[id]}"><div class="symbol" style="--x:${id%4/3*100}%;--y:${Math.floor(id/4)/2*100}%"></div>${id===2?'<b class="symbol-label">SCATTER</b>':id===5?'<b class="symbol-label">WILD</b>':''}</div>`;}
