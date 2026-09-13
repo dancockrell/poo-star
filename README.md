@@ -1,4 +1,6 @@
 # Poo Star
+[Play Poo Star](https://dancockrell.github.io/poo-star/)
+
 A lovingly ridiculous bathroom-celebrity slot demo, made from the supplied Poo Star reference.
 
 Forked from dancockrell/supernatural-wild-west at e739f731b6be777df618ffdaf6fda3951a19d2af. The original project is unchanged. This edition has its own five-by-three presentation and twenty-payline demo rules; it reuses the original deterministic RNG/replay helpers for tests. It does not inherit Wild West payout percentages or certification claims.
