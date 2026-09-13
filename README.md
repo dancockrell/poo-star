@@ -9,6 +9,6 @@ Run `npm install`, `npm run dev`. Build with `npm run build`. `npm test` checks 
 
 Fictional credits only. No deposits, cash prizes, or real-money wagering. Saves are local to the browser. Generated art follows the user-supplied reference; provenance is in docs/art-direction.md.
 
-Sound: original 112 BPM sixteen-bar funk score (resonant slap bass, wah chops, horn call-and-response, drum breaks), synthesized in the browser. Enable with SOUND ON. Music and effects have independent sliders in How to Play; win cues duck the score. No audio downloads or third-party music licenses required.
+Sound: “Funkorama” by Kevin MacLeod (incompetech.com), CC BY 4.0, with original cartoon game effects. Recording bundled locally. Enable SOUND ON; music and effects have independent sliders and gameplay ducking. See docs/music-license.md for credit, source and license.
 
 Math audit: run `node scripts/audit-math.mjs` for seeded complete paid-spin cycles, including every retriggered free spin. Results and approximate uncertainty are in `docs/math-audit.json`. This is engineering evidence for a fictional-credit demo, not a certified return claim.

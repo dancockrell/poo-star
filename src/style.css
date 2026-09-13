@@ -8,3 +8,15 @@
 .audio-settings{border-top:1px solid #715232;padding:20px 0 8px}.audio-settings label{display:flex;align-items:center;gap:18px;justify-content:space-between;margin:10px 0;font-weight:700;letter-spacing:.1em}.audio-settings input{width:70%;accent-color:#f53d83}
 
 .reels:has(.reel-window){display:flex;gap:0}.reel-window{width:20%;height:100%;overflow:hidden;position:relative;box-shadow:inset 0 12px 15px #30210d55,inset 0 -12px 15px #30210d55}.reel-strip{will-change:transform}.reel-strip .cell{width:100%;flex:none;box-sizing:border-box}.reel-window:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(#24180933,transparent 15%,transparent 85%,#24180933)}
+
+/* One stationary grid, shared by the resting board and moving strips. */
+.reels .cell{border:0;box-shadow:none}
+.reels:after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(to right,transparent calc(20% - 1px),#51432b calc(20% - 1px),#51432b calc(20% + 1px),transparent calc(20% + 1px),transparent calc(40% - 1px),#51432b calc(40% - 1px),#51432b calc(40% + 1px),transparent calc(40% + 1px),transparent calc(60% - 1px),#51432b calc(60% - 1px),#51432b calc(60% + 1px),transparent calc(60% + 1px),transparent calc(80% - 1px),#51432b calc(80% - 1px),#51432b calc(80% + 1px),transparent calc(80% + 1px)),linear-gradient(to bottom,transparent calc(33.3333% - 1px),#51432b calc(33.3333% - 1px),#51432b calc(33.3333% + 1px),transparent calc(33.3333% + 1px),transparent calc(66.6667% - 1px),#51432b calc(66.6667% - 1px),#51432b calc(66.6667% + 1px),transparent calc(66.6667% + 1px))}
+.reels .winner{box-shadow:inset 0 0 0 3px #ffe799,inset 0 0 28px #fabe3877}
+.feature-board{left:86%;top:40%;width:9.8%;height:28%;overflow:hidden}
+.feature-board h2{font-size:1.7cqw;margin:0 0 .7cqw;letter-spacing:.05em}
+.feature-board p{font-size:1.13cqw;margin:0 0 .75cqw;gap:.35cqw;line-height:1.05}
+.feature-board .feature-icon{font-size:2.35cqw;width:2cqw}
+.feature-board small{font-size:1.04cqw;line-height:1.18;letter-spacing:0}
+.feature-board small strong{font-size:.88cqw}
+.audio-settings a{color:#e6bd74}

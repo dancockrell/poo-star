@@ -22,6 +22,17 @@
         1536,
         1024
       ]
+    },
+    {
+      "path": "public/audio/funkorama.mp3",
+      "sha256": "6be229815d85a0b99382b944d31098b882702c04ac7ad899e44ab7f8ba89b5ad",
+      "bytes": 8199078,
+      "creator": "Kevin MacLeod",
+      "title": "Funkorama",
+      "source": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Funkorama.mp3",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "modifications": "Unedited recording; looped and volume-ducked at runtime"
     }
   ],
   "note": "Intentionally opaque background and tile art; no alpha masking or generated video. Checkerboard atlas candidate rejected and not shipped."
