@@ -1,7 +1,7 @@
-import funkoramaUrl from '../public/audio/funkorama.mp3?url';
+import musicUrl from '../public/audio/c-funk.mp3?url';
 export type Cue='tap'|'roll'|'stop'|'scatter'|'wild'|'win'|'bigwin'|'bonus'|'lose';
 
-/** Licensed Funkorama recording plus original comic game effects. */
+/** Licensed C-Funk recording plus original comic game effects. */
 export class Sound {
  enabled=false;musicLevel=.38;effectLevel=.7;
  private context?:AudioContext;private music?:GainNode;private fx?:GainNode;
@@ -12,7 +12,7 @@ export class Sound {
  constructor(){try{const saved=JSON.parse(localStorage.getItem('poo-star-audio')||'null');if(saved){this.musicLevel=Math.max(0,Math.min(1,saved.music??.38));this.effectLevel=Math.max(0,Math.min(1,saved.effects??.7));}}catch{}}
  private prepare(){if(this.context)return;const c=this.context=new AudioContext();const limiter=c.createDynamicsCompressor();limiter.threshold.value=-14;limiter.knee.value=12;limiter.ratio.value=5;limiter.attack.value=.006;limiter.release.value=.18;limiter.connect(c.destination);
  this.music=c.createGain();this.fx=c.createGain();this.music.gain.value=this.musicLevel;this.fx.gain.value=this.effectLevel;this.music.connect(limiter);this.fx.connect(limiter);
- this.track=new Audio(funkoramaUrl);this.track.loop=true;this.track.preload="auto";c.createMediaElementSource(this.track).connect(this.music);
+ this.track=new Audio(musicUrl);this.track.loop=true;this.track.preload="auto";c.createMediaElementSource(this.track).connect(this.music);
  this.noise=c.createBuffer(1,c.sampleRate*2,c.sampleRate);const data=this.noise.getChannelData(0);let seed=7341;for(let i=0;i<data.length;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;data[i]=seed/2147483648-1;}}
  toggle(){this.enabled=!this.enabled;if(this.enabled){this.prepare();this.resume();this.play('tap');}else this.stop();return this.enabled;}
  levels(music:number,effects:number){this.musicLevel=Math.max(0,Math.min(1,music));this.effectLevel=Math.max(0,Math.min(1,effects));if(this.context){this.music!.gain.setTargetAtTime(this.musicLevel*this.duckDepth,this.context.currentTime,.03);this.fx!.gain.setTargetAtTime(this.effectLevel,this.context.currentTime,.03);}try{localStorage.setItem('poo-star-audio',JSON.stringify({music:this.musicLevel,effects:this.effectLevel}));}catch{}}

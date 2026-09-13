@@ -24,12 +24,12 @@
       ]
     },
     {
-      "path": "public/audio/funkorama.mp3",
-      "sha256": "6be229815d85a0b99382b944d31098b882702c04ac7ad899e44ab7f8ba89b5ad",
-      "bytes": 8199078,
+      "path": "public/audio/c-funk.mp3",
+      "sha256": "986a66e4b1cfd70b7e805df67b1e5a9f85f7d2933e1d1b95ba4cfc1c5fb9e046",
+      "bytes": 6947302,
       "creator": "Kevin MacLeod",
-      "title": "Funkorama",
-      "source": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/Funkorama.mp3",
+      "title": "C-Funk",
+      "source": "https://incompetech.com/music/royalty-free/mp3-royaltyfree/C-Funk.mp3",
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
       "modifications": "Unedited recording; looped and volume-ducked at runtime"
