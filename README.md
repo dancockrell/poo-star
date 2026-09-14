@@ -9,6 +9,6 @@ Run `npm install`, `npm run dev`. Build with `npm run build`. `npm test` checks 
 
 Fictional credits only. No deposits, cash prizes, or real-money wagering. Saves are local to the browser. Generated art follows the user-supplied reference; provenance is in docs/art-direction.md.
 
-Sound: “C-Funk” by Kevin MacLeod (incompetech.com), CC BY 4.0, with original cartoon game effects. Recording bundled locally. Enable SOUND ON; music and effects have independent sliders and gameplay ducking. See docs/music-license.md for credit, source and license.
+Sound: “C-Funk” by Kevin MacLeod (incompetech.com), CC BY 4.0, with CC0 recorded farts, mud splats and casino foley. Recording bundled locally. Enable SOUND ON; music and effects have independent sliders and gameplay ducking. See docs/music-license.md for credit, source and license.
 
 Math audit: run `node scripts/audit-math.mjs` for seeded complete paid-spin cycles, including every retriggered free spin. Results and approximate uncertainty are in `docs/math-audit.json`. This is engineering evidence for a fictional-credit demo, not a certified return claim.

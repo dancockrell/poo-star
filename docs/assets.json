@@ -33,6 +33,87 @@
       "license": "CC BY 4.0",
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
       "modifications": "Unedited recording; looped and volume-ducked at runtime"
+    },
+    {
+      "path": "public/audio/fx/card-place-1.ogg",
+      "sha256": "d8f26c33a665dcbdcc6f632f6050bc9dd548feb0d4942d4547615926d3926810",
+      "bytes": 9624,
+      "creator": "Kenney",
+      "source": "https://kenney.nl/assets/casino-audio",
+      "license": "CC0",
+      "modifications": "Playback level normalization only"
+    },
+    {
+      "path": "public/audio/fx/card-shuffle.ogg",
+      "sha256": "96c84883a30845ede723a4cf2e8369e9837e7dd4e0d4eb0212b0a7ed21b0f544",
+      "bytes": 30002,
+      "creator": "Kenney",
+      "source": "https://kenney.nl/assets/casino-audio",
+      "license": "CC0",
+      "modifications": "Playback level normalization only"
+    },
+    {
+      "path": "public/audio/fx/chip-lay-1.ogg",
+      "sha256": "4b2111252ccb64eed67f171e061053849cfbb29873536c03948646f244a3905c",
+      "bytes": 5720,
+      "creator": "Kenney",
+      "source": "https://kenney.nl/assets/casino-audio",
+      "license": "CC0",
+      "modifications": "Playback level normalization only"
+    },
+    {
+      "path": "public/audio/fx/chips-collide-1.ogg",
+      "sha256": "f41b3d106360fc68ebc061a211d4265b4cb5fa1fbe86e4d57d3673510e2c3784",
+      "bytes": 6356,
+      "creator": "Kenney",
+      "source": "https://kenney.nl/assets/casino-audio",
+      "license": "CC0",
+      "modifications": "Playback level normalization only"
+    },
+    {
+      "path": "public/audio/fx/chips-handle-1.ogg",
+      "sha256": "a2c495237fb0dc0dc96ccc2c9840572edd226e6459398ecb631c6c9f9e5408f0",
+      "bytes": 9374,
+      "creator": "Kenney",
+      "source": "https://kenney.nl/assets/casino-audio",
+      "license": "CC0",
+      "modifications": "Playback level normalization only"
+    },
+    {
+      "path": "public/audio/fx/dice-shake-1.ogg",
+      "sha256": "ba603441c857204dbe3ff3345902c7e1c3f523bf1bd314acf088609bc6c1e4e5",
+      "bytes": 19388,
+      "creator": "Kenney",
+      "source": "https://kenney.nl/assets/casino-audio",
+      "license": "CC0",
+      "modifications": "Playback level normalization only"
+    },
+    {
+      "path": "public/audio/fx/fart-445998.mp3",
+      "sha256": "fa2e4edb297ec65372a5fee6705128a307bcadc0b0245ad29e9681a8955bf96e",
+      "bytes": 22493,
+      "creator": "Breviceps",
+      "source": "https://freesound.org/people/Breviceps/sounds/445998/",
+      "license": "CC0",
+      "modifications": "Playback level normalization only"
+    },
+    {
+      "path": "public/audio/fx/fart-446000.mp3",
+      "sha256": "da890ff85703358d2e3fbcf5271ccf4fe76a15e07dbed5efabed65eb4ae4a210",
+      "bytes": 26774,
+      "creator": "Breviceps",
+      "source": "https://freesound.org/people/Breviceps/sounds/446000/",
+      "license": "CC0",
+      "modifications": "Playback level normalization only"
+    },
+    {
+      "path": "public/audio/fx/splat.mp3",
+      "sha256": "6bd5816d9b15497cdc6179f8a95c342d874ea292b9bb2e4cfed31ac78bf1a994",
+      "bytes": 8766,
+      "creator": "Breviceps",
+      "source": "https://freesound.org/people/Breviceps/sounds/445109/",
+      "license": "CC0",
+      "modifications": "Playback level normalization only"
     }
   ],
   "note": "Intentionally opaque background and tile art; no alpha masking or generated video. Checkerboard atlas candidate rejected and not shipped."
