@@ -1,6 +1,6 @@
 import {chromium} from '@playwright/test';
 const browser=await chromium.launch({channel:'chrome',headless:true});
-try{const page=await browser.newPage({viewport:{width:1440,height:1030}});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(process.env.DEMO_URL||'http://127.0.0.1:8791/');await page.evaluate(()=>document.fonts.ready);await page.locator('#spin').waitFor();
+try{const page=await browser.newPage({viewport:{width:1440,height:1030}});const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(process.env.DEMO_URL||'http://127.0.0.1:8791/',{waitUntil:'domcontentloaded'});await page.evaluate(()=>Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,5000))]));await page.locator('#spin').waitFor();
 await page.screenshot({path:'docs/desktop.png'});
 await page.locator('#spin').click();await page.waitForFunction(()=>JSON.parse(localStorage.getItem('poo-star-v1')||'null')?.round===1);await page.waitForFunction(()=>!document.querySelector('#spin').disabled);
 await page.reload();await page.waitForFunction(()=>document.querySelector('#round').textContent==='ROUND 0001');
