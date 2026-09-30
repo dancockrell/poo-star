@@ -1,0 +1,2 @@
+# Preserve downloaded license notices exactly as recorded in the asset manifest.
+docs/font-licenses/* -text
